@@ -58,6 +58,9 @@ public class todo {
     @GetMapping("/todo/update/complete/{id}")
     public String completeToDo(@PathVariable Long id){
 
+        if(toDoService.getToDo(id)==null){
+            return "redirect:/wrongID";
+        }
         toDoService.update(toDoService.getToDo(id));
 
         return "redirect:/todo";
@@ -65,27 +68,33 @@ public class todo {
 
     @GetMapping("/todo/update/text/{id}/{text}")
     public String updateText(@PathVariable Long id, @PathVariable String text){
-
+        if(toDoService.getToDo(id)==null){
+            return "redirect:/wrongID";
+        }
         toDoServiceImpl.updateText(toDoService.getToDo(id), text);
 
         return "redirect:/todo";
     }
 
 
-
-
-
     @GetMapping("/errorMsg")
     @ResponseBody
     public String errorMsg(){
-
         return "Niepoprawne dane";
     }
 
 
+    @GetMapping("/wrongID")
+    @ResponseBody
+    public String wrongID(){
+        return noIdMessage;
+    }
+
+
+
     public String noIdMessage = "Zadanie o podanym ID nie istnieje, wybierz inne ID, kliknij -->" +
             "" +
-            " <a href=\"http://localhost:8080/todo\">tutaj</a> " +
+            " <a href=\"/todo\">tutaj</a> " +
             "" +
             "<-- aby sprawdzic dostepne zadania";
 
