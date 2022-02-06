@@ -6,6 +6,7 @@ import pl.uhu87.todo_list.ToDo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class ToDoServiceImpl implements ToDoService {
@@ -14,12 +15,27 @@ public class ToDoServiceImpl implements ToDoService {
 
     public ToDoServiceImpl() {
         toDoList = new ArrayList<>();
+        //i tutaj wrzucaj rzeczy do mapy
     }
 
 
     @Override
     public List<ToDo> getToDoList() {
         return this.toDoList;
+    }
+
+
+    public String ToDoListToString(){
+
+        List<String>tasks = new ArrayList<>();
+        for (ToDo td:toDoList
+             ) {if (td.isCompleted()==true){tasks.add(td.getId()+" - "+td.getText()+" - "+" COMPLETED");}
+        else{tasks.add(td.getId()+" - "+td.getText()+" - "+" IN PROGRESS");}
+        }
+
+        return tasks.stream()
+                .map(element->"<li>"+element+"</li>")
+                .collect(Collectors.joining());
     }
 
     @Override
@@ -65,7 +81,18 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public void update(ToDo toDo) {
 
+        toDo.setCompleted(true);
+
     }
+
+
+    public void updateText(ToDo toDo, String text) {
+
+        toDo.setText(text);
+
+    }
+
+
 
     public void setToDoList(List<ToDo> toDoList) {
         this.toDoList = toDoList;

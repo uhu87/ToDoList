@@ -27,9 +27,7 @@ public class todo {
     @GetMapping("/todo")
     @ResponseBody
     public String ToDoList(){
-        return toDoService.getToDoList().stream()
-                .map(element->"<li>"+element.getId()+" - "+element.getText()+" - "+element.isCompleted()+"</li>")
-                .collect(Collectors.joining());
+        return toDoServiceImpl.ToDoListToString();
     }
 
     @GetMapping("/todo/{id}")
@@ -57,6 +55,24 @@ public class todo {
     }
 
 
+    @GetMapping("/todo/update/complete/{id}")
+    public String completeToDo(@PathVariable Long id){
+
+        toDoService.update(toDoService.getToDo(id));
+
+        return "redirect:/todo";
+    }
+
+    @GetMapping("/todo/update/text/{id}/{text}")
+    public String updateText(@PathVariable Long id, @PathVariable String text){
+
+        toDoServiceImpl.updateText(toDoService.getToDo(id), text);
+
+        return "redirect:/todo";
+    }
+
+
+
 
 
     @GetMapping("/errorMsg")
@@ -65,13 +81,6 @@ public class todo {
 
         return "Niepoprawne dane";
     }
-
-
-
-
-
-
-
 
 
     public String noIdMessage = "Zadanie o podanym ID nie istnieje, wybierz inne ID, kliknij -->" +
