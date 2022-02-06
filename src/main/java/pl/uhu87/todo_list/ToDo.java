@@ -5,12 +5,16 @@ public class ToDo {
 
     private Long id;
     private String text;
-    private boolean completed;
+    private boolean completed = false;
 
     public ToDo(Long id, String text, boolean completed) {
         this.id = id;
         this.text = text;
         this.completed = completed;
+    }
+
+    public ToDo(String text) {
+        this.text = text;
     }
 
     public ToDo() {
