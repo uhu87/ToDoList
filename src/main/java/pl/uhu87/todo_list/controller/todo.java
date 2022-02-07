@@ -136,7 +136,7 @@ public class todo {
     @GetMapping("/errorMsg")
     @ResponseBody
     public String errorMsg(){
-        return "Niepoprawne dane";
+        return "Wrong data";
     }
 
 
@@ -148,15 +148,15 @@ public class todo {
 
 
 
-    public String noIdMessage = "Zadanie o podanym ID nie istnieje, wybierz inne ID, kliknij -->" +
+    public String noIdMessage = "The task with the given ID doesn't exist, please choose another ID click -->" +
             "" +
-            " <a href=\"/todo\">tutaj</a> " +
+            " <a href=\"/todo\">here</a> " +
             "" +
-            "<-- aby sprawdzic dostepne zadania";
+            "<-- to see your tasks";
 
 
     public String addForm = "<form action=\"#\" method=\"POST\">\n" +
-            "  <p><input type=\"text\" required placeholder=\"Podaj treść zadania\" name=\"text\"></p>\n" +
-            "  <input type=\"submit\" value=\"Wyślij\">\n" +
+            "  <p><input type=\"text\" required placeholder=\"Give your task's description\" name=\"text\"></p>\n" +
+            "  <input type=\"submit\" value=\"SAVE\">\n" +
             "</form>";
 }

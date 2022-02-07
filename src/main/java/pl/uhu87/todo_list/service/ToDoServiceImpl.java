@@ -38,7 +38,7 @@ public class ToDoServiceImpl implements ToDoService {
             }
         }
 
-        if(tasks.isEmpty()){return "Nie masz żadnych zadań, dodaj zadania to listy";}
+        if(tasks.isEmpty()){return "Your list is empty, please <a href=\"/add\">add</a> tasks to your list";}
         return tasks.stream()
                 .map(element -> "<li>" + element + "</li>")
                 .collect(Collectors.joining());
