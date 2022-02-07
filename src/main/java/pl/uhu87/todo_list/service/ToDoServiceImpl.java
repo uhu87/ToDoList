@@ -25,18 +25,36 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
 
-    public String ToDoListToString(){
+    public String ToDoListToString() {
 
-        List<String>tasks = new ArrayList<>();
-        for (ToDo td:toDoList
-             ) {if (td.isCompleted()==true){tasks.add(td.getId()+" - "+td.getText()+" - "+" COMPLETED");}
-        else{tasks.add(td.getId()+" - "+td.getText()+" - "+" IN PROGRESS");}
+        List<String> tasks = new ArrayList<>();
+        for (ToDo td : toDoList
+        ) {
+            if (td.isCompleted() == true) {
+                tasks.add(td.getId() + " - " + td.getText() + " - " + "status COMPLETED");
+            } else if(td.isCompleted()==false && td.isPriority()==true)
+            { tasks.add(td.getId() + " - " + td.getText() + " - " + "status: IN PROGRESS"+ " - PRIORITY");}
+            else if (td.isCompleted() == false) {
+                tasks.add(td.getId() + " - " + td.getText() + " - " + "status: IN PROGRESS");
+            }
         }
 
         return tasks.stream()
-                .map(element->"<li>"+element+"</li>")
+                .map(element -> "<li>" + element + "</li>")
                 .collect(Collectors.joining());
     }
+
+
+    public String SingleToDoListToString(ToDo td) {
+
+        if (td.isCompleted() == true) {
+            return td.getId() + " - " + td.getText() + " - " + "status COMPLETED";
+        } else {
+            return td.getId() + " - " + td.getText() + " - " + "status: IN PROGRESS";
+        }
+
+    }
+
 
     @Override
     public ToDo addToDo(ToDo toDo) {
@@ -65,6 +83,7 @@ public class ToDoServiceImpl implements ToDoService {
 
         for (ToDo toDo : toDoList) {
             if (id.equals(toDo.getId())) {
+
                 return toDo;
             }
         }
@@ -74,7 +93,7 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Override
     public void delete(Long id) {
-        toDoList.removeIf(toDo -> toDo.getId()==id);
+        toDoList.removeIf(toDo -> toDo.getId() == id);
     }
 
 
@@ -93,6 +112,11 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
 
+    public void updatePriority(ToDo toDo) {
+
+        toDo.setPriority(true);
+
+    }
 
     public void setToDoList(List<ToDo> toDoList) {
         this.toDoList = toDoList;

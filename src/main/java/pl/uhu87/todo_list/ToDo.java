@@ -6,11 +6,13 @@ public class ToDo {
     private Long id;
     private String text;
     private boolean completed = false;
+    private boolean priority = false;
 
-    public ToDo(Long id, String text, boolean completed) {
+    public ToDo(Long id, String text, boolean completed, boolean priority) {
         this.id = id;
         this.text = text;
         this.completed = completed;
+        this.priority = priority;
     }
 
     public ToDo(String text) {
@@ -42,6 +44,14 @@ public class ToDo {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public boolean isPriority() {
+        return priority;
+    }
+
+    public void setPriority(boolean priority) {
+        this.priority = priority;
     }
 
     @Override
