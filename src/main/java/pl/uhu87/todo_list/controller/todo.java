@@ -22,11 +22,16 @@ public class todo {
         this.toDoServiceImpl = toDoServiceImpl;
     }
 
+    //___________SHOW ALL___________________________________
+
     @GetMapping("")
     @ResponseBody
     public String ToDoList(){
+
         return toDoServiceImpl.ToDoListToString();
     }
+
+    //___________SHOW ONE___________________________________
 
     @GetMapping("/{id}")
     @ResponseBody
@@ -35,6 +40,8 @@ public class todo {
         if(toDoService.getToDo(id)==null){return noIdMessage;};
         return toDoServiceImpl.SingleToDoListToString(toDoServiceImpl.getToDo(id));
     }
+
+    //___________ADD___________________________________
 
     @GetMapping("/add/{text}")
     public String addToDo(@PathVariable String text){
@@ -46,33 +53,6 @@ public class todo {
         return "redirect:/todo";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteToDo(@PathVariable Long id){
-        toDoService.delete(id);
-           return "redirect:/todo";
-    }
-
-
-    @GetMapping("/update/complete/{id}")
-    public String completeToDo(@PathVariable Long id){
-
-        if(toDoService.getToDo(id)==null){
-            return "redirect:/todo/wrongID";
-        } else {
-        toDoService.update(toDoService.getToDo(id));
-
-        return "redirect:/todo";}
-    }
-
-    @GetMapping("/update/text/{id}/{text}")
-    public String updateText(@PathVariable Long id, @PathVariable String text){
-        if(toDoService.getToDo(id)==null){
-            return "redirect:/todo/wrongID";
-        } else {
-        toDoServiceImpl.updateText(toDoService.getToDo(id), text);
-
-        return "redirect:/todo";}
-    }
 
     @GetMapping("/add")
     @ResponseBody
@@ -92,6 +72,40 @@ public class todo {
         return "redirect:/todo";
     }
 
+    //___________DELETE___________________________________
+
+    @GetMapping("/delete/{id}")
+    public String deleteToDo(@PathVariable Long id){
+        if(toDoService.getToDo(id)==null){
+            return "redirect:/todo/wrongID";}
+        toDoService.delete(id);
+        return "redirect:/todo";
+    }
+
+
+    //___________UPDATES___________________________________
+
+    @GetMapping("/update/complete/{id}")
+    public String completeToDo(@PathVariable Long id){
+
+        if(toDoService.getToDo(id)==null){
+            return "redirect:/todo/wrongID";
+        } else {
+            toDoService.update(toDoService.getToDo(id));
+
+            return "redirect:/todo";}
+    }
+
+    @GetMapping("/update/text/{id}/{text}")
+    public String updateText(@PathVariable Long id, @PathVariable String text){
+        if(toDoService.getToDo(id)==null){
+            return "redirect:/todo/wrongID";
+        } else {
+            toDoServiceImpl.updateText(toDoService.getToDo(id), text);
+
+            return "redirect:/todo";}
+    }
+
     @GetMapping("/update/priority/{id}")
     public String prioToDo(@PathVariable Long id){
 
@@ -102,6 +116,17 @@ public class todo {
 
         return "redirect:/todo";}
     }
+
+    //___________RESET___________________________________
+
+    @GetMapping("/reset")
+    public String reset(){
+
+        toDoServiceImpl.resetList();
+
+            return "redirect:/todo";
+    }
+
 
 
 

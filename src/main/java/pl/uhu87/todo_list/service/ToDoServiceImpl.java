@@ -15,7 +15,6 @@ public class ToDoServiceImpl implements ToDoService {
 
     public ToDoServiceImpl() {
         toDoList = new ArrayList<>();
-        //i tutaj wrzucaj rzeczy do mapy
     }
 
 
@@ -39,6 +38,7 @@ public class ToDoServiceImpl implements ToDoService {
             }
         }
 
+        if(tasks.isEmpty()){return "Nie masz żadnych zadań, dodaj zadania to listy";}
         return tasks.stream()
                 .map(element -> "<li>" + element + "</li>")
                 .collect(Collectors.joining());
@@ -118,6 +118,10 @@ public class ToDoServiceImpl implements ToDoService {
 
     }
 
+    public void  resetList()
+    {toDoList = new ArrayList<>();}
+
+
     public void setToDoList(List<ToDo> toDoList) {
         this.toDoList = toDoList;
     }
@@ -135,4 +139,5 @@ public class ToDoServiceImpl implements ToDoService {
             return lastID + 1;
         }
     }
+
 }
