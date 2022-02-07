@@ -69,7 +69,7 @@ public class todo {
         }
         ToDo toDo = new ToDo(text);
         toDoServiceImpl.addToDo(text);
-        return "redirect:/todo";
+        return "redirect:/todo/";
     }
 
     //___________DELETE___________________________________
