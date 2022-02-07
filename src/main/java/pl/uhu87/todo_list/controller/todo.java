@@ -35,10 +35,17 @@ public class todo {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public String getToDo(@PathVariable Long id){
+    public String getToDo(@PathVariable String  id){
 
-        if(toDoService.getToDo(id)==null){return noIdMessage;};
-        return toDoServiceImpl.SingleToDoListToString(toDoServiceImpl.getToDo(id));
+        try {
+            Long idNumber = Long.parseLong(id);
+            if(toDoService.getToDo(idNumber)==null){return noIdMessage;};
+            return toDoServiceImpl.SingleToDoListToString(toDoServiceImpl.getToDo(idNumber));
+        }catch (NumberFormatException e){return "wrong format";}
+
+
+
+
     }
 
     //___________ADD___________________________________
@@ -75,46 +82,58 @@ public class todo {
     //___________DELETE___________________________________
 
     @GetMapping("/delete/{id}")
-    public String deleteToDo(@PathVariable Long id){
-        if(toDoService.getToDo(id)==null){
-            return "redirect:/todo/wrongID";}
-        toDoService.delete(id);
-        return "redirect:/todo";
+    public String deleteToDo(@PathVariable String id){
+
+        try {
+            Long idNumber = Long.parseLong(id);
+            if(toDoService.getToDo(idNumber)==null){
+                return "redirect:/todo/wrongID";}
+            toDoService.delete(idNumber);
+            return "redirect:/todo";
+        } catch (NumberFormatException e){return "redirect:/todo/errorMsg";}
+
     }
 
 
     //___________UPDATES___________________________________
 
     @GetMapping("/update/complete/{id}")
-    public String completeToDo(@PathVariable Long id){
-
-        if(toDoService.getToDo(id)==null){
+    public String completeToDo(@PathVariable String id){
+        try {
+            Long idNumber = Long.parseLong(id);
+        if(toDoService.getToDo(idNumber)==null){
             return "redirect:/todo/wrongID";
         } else {
-            toDoService.update(toDoService.getToDo(id));
+            toDoService.update(toDoService.getToDo(idNumber));
 
             return "redirect:/todo";}
+        } catch (NumberFormatException e){return "redirect:/todo/errorMsg";}
     }
 
     @GetMapping("/update/text/{id}/{text}")
-    public String updateText(@PathVariable Long id, @PathVariable String text){
-        if(toDoService.getToDo(id)==null){
+    public String updateText(@PathVariable String id, @PathVariable String text){
+        try {
+            Long idNumber = Long.parseLong(id);
+        if(toDoService.getToDo(idNumber)==null){
             return "redirect:/todo/wrongID";
         } else {
-            toDoServiceImpl.updateText(toDoService.getToDo(id), text);
+            toDoServiceImpl.updateText(toDoService.getToDo(idNumber), text);
 
             return "redirect:/todo";}
+        } catch (NumberFormatException e){return "redirect:/todo/errorMsg";}
     }
 
     @GetMapping("/update/priority/{id}")
-    public String prioToDo(@PathVariable Long id){
-
-        if(toDoService.getToDo(id)==null){
+    public String prioToDo(@PathVariable String id){
+        try {
+            Long idNumber = Long.parseLong(id);
+        if(toDoService.getToDo(idNumber)==null){
             return "redirect:/todo/wrongID";
         } else {
-        toDoServiceImpl.updatePriority(toDoService.getToDo(id));
+        toDoServiceImpl.updatePriority(toDoService.getToDo(idNumber));
 
         return "redirect:/todo";}
+        } catch (NumberFormatException e){return "redirect:/todo/errorMsg";}
     }
 
     //___________RESET___________________________________
