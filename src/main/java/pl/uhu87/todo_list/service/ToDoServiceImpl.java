@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class ToDoServiceImpl implements ToDoService {
+public class ToDoServiceImpl  {
 
     private List<ToDo> toDoList;
 
@@ -18,7 +18,7 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
 
-    @Override
+    //@Override
     public List<ToDo> getToDoList() {
         return this.toDoList;
     }
@@ -56,7 +56,7 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
 
-    @Override
+    //@Override
     public ToDo addToDo(ToDo toDo) {
         toDo.setId(getLastId());
         toDoList.add(toDo);
@@ -72,13 +72,13 @@ public class ToDoServiceImpl implements ToDoService {
         return toDo;
     }
 
-    @Override
+ /*   @Override
     public Optional<ToDo> getToDoOptional(Long id) {
 
         return Optional.empty();
-    }
+    }*/
 
-    @Override
+    //@Override
     public ToDo getToDo(Long id) {
 
         for (ToDo toDo : toDoList) {
@@ -91,13 +91,13 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
 
-    @Override
+   // @Override
     public void delete(Long id) {
         toDoList.removeIf(toDo -> toDo.getId() == id);
     }
 
 
-    @Override
+    //@Override
     public void update(ToDo toDo) {
 
         toDo.setCompleted(true);
