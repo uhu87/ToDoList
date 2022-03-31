@@ -1,0 +1,20 @@
+
+# curl http://localhost:8080/todo/1
+GET http://localhost:8080/todo/1
+
+###
+
+# curl -X POST -i -H "Content-Type: application/json"
+#-d '{"isbn":"34321","title":"Thinking in Java", "publisher":"Helion","type":"programming", "author":"Bruce Eckel"}'
+#http://localhost:8080/books
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{"isbn": "AAAAAAAAAa","title": "AAAAAAAAAa in Java","publisher": "AAAAAAAAAa","type": "AAAAAAAAAa","author": "AAAAAAAAAa Eckel"}
+
+###
+
+DELETE http://localhost:8080/books/3
+
+###
+

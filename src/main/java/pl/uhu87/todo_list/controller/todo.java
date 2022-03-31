@@ -10,7 +10,7 @@ import pl.uhu87.todo_list.service.ToDoServiceImpl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/todo")
 public class todo {
 
@@ -24,25 +24,27 @@ public class todo {
 
     //___________SHOW ALL___________________________________
 
-    @GetMapping("/")
-    public List<ToDo>toDoList (){
+    @GetMapping("")
+    @ResponseBody
+    public String ToDoList(){
 
-        return toDoServiceImpl.getToDoList();
+        return toDoServiceImpl.ToDoListToString();
     }
 
     //___________SHOW ONE___________________________________
 
     @GetMapping("/{id}")
-    public ToDo getToDo(@PathVariable Long  id){
+    @ResponseBody
+    public String getToDo(@PathVariable String  id){
 
-       /* try {
+        try {
             Long idNumber = Long.parseLong(id);
             if(toDoService.getToDo(idNumber)==null){return noIdMessage;};
             return toDoServiceImpl.SingleToDoListToString(toDoServiceImpl.getToDo(idNumber));
         }catch (NumberFormatException e){return "wrong format";}
 
-*/
-        return toDoServiceImpl.getToDo(id);
+
+
 
     }
 
@@ -67,21 +69,19 @@ public class todo {
     }
 
     @PostMapping("/add")
-    public String addformPost(ToDo toDo){
+    public String addformPost(@RequestParam("text") String text){
 
-
-
-        String text = toDo.getText();
-        ToDo newToDo = new ToDo(toDo.getText());
-        toDoServiceImpl.addToDo(newToDo);
-
-
+        if(text.isEmpty()){
+            return "redirect:/todo/errorMsg";
+        }
+        ToDo toDo = new ToDo(text);
+        toDoServiceImpl.addToDo(text);
         return "redirect:/todo/";
     }
 
     //___________DELETE___________________________________
 
-    @DeleteMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteToDo(@PathVariable String id){
 
         try {
