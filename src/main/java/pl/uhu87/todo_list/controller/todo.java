@@ -10,7 +10,7 @@ import pl.uhu87.todo_list.service.ToDoServiceImpl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("/todo")
 public class todo {
 
@@ -25,39 +25,37 @@ public class todo {
     //___________SHOW ALL___________________________________
 
     @GetMapping("")
-    @ResponseBody
-    public String ToDoList(){
+    public List<ToDo> ToDoList(){
 
-        return toDoServiceImpl.ToDoListToString();
+        return toDoServiceImpl.getToDoList();
     }
 
     //___________SHOW ONE___________________________________
 
     @GetMapping("/{id}")
-    @ResponseBody
-    public String getToDo(@PathVariable String  id){
+    public ToDo getToDo(@PathVariable Long  id){
 
-        try {
-            Long idNumber = Long.parseLong(id);
+       /* try {
+            Long idNumber = id;
             if(toDoService.getToDo(idNumber)==null){return noIdMessage;};
             return toDoServiceImpl.SingleToDoListToString(toDoServiceImpl.getToDo(idNumber));
-        }catch (NumberFormatException e){return "wrong format";}
+        }catch (NumberFormatException e){return "wrong format";}*/
 
-
+        return toDoServiceImpl.getToDo(id);
 
 
     }
 
     //___________ADD___________________________________
 
-    @GetMapping("/add/{text}")
+    @GetMapping("/addGet/{text}")
     public String addToDo(@PathVariable String text){
         if(text.isEmpty()){
             return "redirect:/todo/errorMsg";
         }
         ToDo toDo = new ToDo(text);
         toDoServiceImpl.addToDo(text);
-        return "redirect:/todo";
+        return "redirect:/todo/";
     }
 
 
