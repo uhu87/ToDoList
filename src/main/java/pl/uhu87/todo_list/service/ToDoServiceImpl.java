@@ -15,6 +15,9 @@ public class ToDoServiceImpl implements ToDoService {
 
     public ToDoServiceImpl() {
         toDoList = new ArrayList<>();
+        toDoList.add(new ToDo(1L, "zadanie 1"));
+        toDoList.add(new ToDo(2L,"zadanie 2"));
+        toDoList.add(new ToDo(3L, "zadanie 3"));
     }
 
 

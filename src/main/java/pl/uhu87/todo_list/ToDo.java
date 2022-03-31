@@ -15,6 +15,11 @@ public class ToDo {
         this.priority = priority;
     }
 
+    public ToDo(Long id, String text) {
+        this.id = id;
+        this.text = text;
+    }
+
     public ToDo(String text) {
         this.text = text;
     }
